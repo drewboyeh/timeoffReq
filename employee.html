@@ -814,7 +814,18 @@
             box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
             border: 1px solid #e5e7eb;
         }
-
+        .search-content * {
+            color: black !important;
+        }
+        .store-overview-content * {
+            color: black !important;
+        }
+        .requests-content * {
+            color: black !important;
+        }
+        .management-content * {
+            color: black !important;
+        }
         .requests-filters {
             margin-bottom: 25px;
             display: flex;
@@ -1040,9 +1051,9 @@
             margin-bottom: 10px;
         }
 
-        .store-name {
+        , .store-name {
             font-weight: 600;
-            color: white;
+            color: black;
             font-size: 14px;
         }
 
@@ -3729,9 +3740,14 @@
 
         // Enhanced Manager Dashboard Functions
         function renderStoreStats() {
-            if (!window.timeOffRequests) return;
-            
-            const stores = ['Arboretum', 'Plaza Volente', 'Southpark', 'Hill Country Galleria', 'Hancock', 'Triangle', 'Westlake'];
+            console.log("renderStoreStats called, timeOffRequests:", window.timeOffRequests);
+            if (!window.timeOffRequests || window.timeOffRequests.length === 0) {
+                const container = document.getElementById("storeStatsGrid");
+                if (container) {
+                    container.innerHTML = "<p style="text-align: center; color: #666; padding: 40px;">No time-off requests data available. Please load requests first.</p>";
+                }
+                return;
+            }            const stores = ['Arboretum', 'Plaza Volente', 'Southpark', 'Hill Country Galleria', 'Hancock', 'Triangle', 'Westlake'];
             const container = document.getElementById('storeStatsGrid');
             
             const storeStats = stores.map(storeName => {
