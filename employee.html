@@ -322,7 +322,10 @@
             position: relative;
             overflow: hidden;
         }
-
+        .calendar-container * {
+            color: black !important;
+        }
+        }
         .calendar-container::before {
             content: '';
             position: absolute;
@@ -346,10 +349,10 @@
             border-bottom: 1px solid #e5e7eb;
         }
 
-        .calendar-header h2 {
+        , .calendar-header h2 {
             font-size: 20px;
             font-weight: 600;
-            color: white;
+            color: black;
             margin: 0;
         }
 
@@ -437,7 +440,8 @@
         .day-cell.today .day-number {
             color: #10b981;
             font-weight: 800;
-        }
+        color: black;
+}
 
         /* Interactive indicator for clickable days */
         .day-cell::after {
@@ -642,7 +646,8 @@
         .day-number {
             font-weight: bold;
             margin-bottom: 5px;
-        }
+        color: black;
+}
 
         .time-slots {
             font-size: 12px;
