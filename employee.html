@@ -1789,7 +1789,190 @@
                 0 0 0 1px rgba(255, 255, 255, 0.2);
             transform: scale(1.02);
         }
-    </style>
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(10px);
+            animation: modalFadeIn 0.3s ease-out;
+        }
+
+        @keyframes modalFadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .modal-content {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(255, 255, 255, 0.9) 100%);
+            backdrop-filter: blur(30px);
+            margin: 2% auto;
+            padding: 0;
+            border-radius: 24px;
+            width: 90%;
+            max-width: 600px;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 
+                0 25px 50px rgba(0, 0, 0, 0.3),
+                inset 0 1px 0 rgba(255, 255, 255, 0.3),
+                0 0 0 1px rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            animation: modalSlideIn 0.3s ease-out;
+        }
+
+        @keyframes modalSlideIn {
+            from { 
+                opacity: 0;
+                transform: translateY(-50px) scale(0.9);
+            }
+            to { 
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        .modal-header {
+            background: linear-gradient(135deg, #3b82f6 0%, #1e40af 100%);
+            color: white;
+            padding: 24px 32px;
+            border-radius: 24px 24px 0 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 20px rgba(59, 130, 246, 0.3);
+        }
+
+        .modal-header h3 {
+            margin: 0;
+            font-size: 24px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .modal-close {
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            color: white;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+            padding: 8px 12px;
+            border-radius: 12px;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+        }
+
+        .modal-close:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: scale(1.1);
+        }
+
+        .modal-body {
+            padding: 32px;
+        }
+
+        .modal-body .form-group label {
+            color: #374151;
+            font-weight: 600;
+            margin-bottom: 8px;
+            display: block;
+        }
+
+        .modal-body input,
+        .modal-body textarea,
+        .modal-body select {
+            width: 100%;
+            padding: 14px 16px;
+            border: 2px solid #e5e7eb;
+            border-radius: 12px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            background: white;
+            color: #374151;
+        }
+
+        .modal-body input:focus,
+        .modal-body textarea:focus,
+        .modal-body select:focus {
+            outline: none;
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+
+        .modal-footer {
+            padding: 24px 32px;
+            border-top: 1px solid #e5e7eb;
+            display: flex;
+            gap: 16px;
+            justify-content: flex-end;
+            background: rgba(249, 250, 251, 0.8);
+            border-radius: 0 0 24px 24px;
+        }
+
+        .modal-footer .btn {
+            padding: 14px 28px;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            min-width: 120px;
+        }
+
+        .modal-footer .btn-primary {
+            background: linear-gradient(135deg, #3b82f6 0%, #1e40af 100%);
+            color: white;
+            box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
+        }
+
+        .modal-footer .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(59, 130, 246, 0.4);
+        }
+
+        .modal-footer .btn-secondary {
+            background: #f3f4f6;
+            color: #374151;
+            border: 2px solid #e5e7eb;
+        }
+
+        .modal-footer .btn-secondary:hover {
+            background: #e5e7eb;
+            transform: translateY(-1px);
+        }
+
+        /* Responsive Modal */
+        @media (max-width: 768px) {
+            .modal-content {
+                width: 95%;
+                margin: 5% auto;
+                max-height: 85vh;
+            }
+            .modal-header,
+            .modal-body,
+            .modal-footer {
+                padding: 20px;
+            }
+            .modal-footer {
+                flex-direction: column;
+            }
+            .modal-footer .btn {
+                width: 100%;
+            }
+        }    </style>
 </head>
 <body>
     <div class="container">
@@ -1866,83 +2049,87 @@
                     <div id="upcomingRequestsList" class="upcoming-requests-grid"></div>
                 </div>
 
-                <!-- Request Form -->
-                <div class="request-form" id="requestForm" style="display: none;">
-                    <h3>Submit Time-Off Request</h3>
-                    <form id="timeOffForm">
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label for="firstName">First Name</label>
-                                <input type="text" id="firstName" name="firstName" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="lastName">Last Name</label>
-                                <input type="text" id="lastName" name="lastName" required>
-                            </div>
+                <!-- Time-Off Request Modal -->
+                <div id="timeOffModal" class="modal">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h3>📅 Submit Time-Off Request</h3>
+                            <button class="modal-close" onclick="closeTimeOffModal()">&times;</button>
                         </div>
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label for="startDate">Start Date</label>
-                                <input type="date" id="startDate" name="startDate" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="endDate">End Date</label>
-                                <input type="date" id="endDate" name="endDate" required>
-                                </div>
-                            </div>
-
-                        <div class="form-row full">
-                            <div class="form-group">
-                                <label style="font-weight: 600; margin-bottom: 8px; display: block;">Store Location(s) - Select all that apply</label>
-                                <div id="storeLocationCheckboxes" style="padding: 16px; border: 2px solid #e1e5e9; border-radius: 8px; background: white;">
-                                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 12px;">
-                                        <label class="store-checkbox-item">
-                                            <input type="checkbox" name="storeLocation" value="Arboretum">
-                                            <span>Arboretum</span>
-                                        </label>
-                                        <label class="store-checkbox-item">
-                                            <input type="checkbox" name="storeLocation" value="Plaza Volente">
-                                            <span>Plaza Volente</span>
-                                        </label>
-                                        <label class="store-checkbox-item">
-                                            <input type="checkbox" name="storeLocation" value="Southpark">
-                                            <span>Southpark</span>
-                                        </label>
-                                        <label class="store-checkbox-item">
-                                            <input type="checkbox" name="storeLocation" value="Hill Country Galleria">
-                                            <span>Hill Country Galleria</span>
-                                        </label>
-                                        <label class="store-checkbox-item">
-                                            <input type="checkbox" name="storeLocation" value="Hancock">
-                                            <span>Hancock</span>
-                                        </label>
-                                        <label class="store-checkbox-item">
-                                            <input type="checkbox" name="storeLocation" value="Triangle">
-                                            <span>Triangle</span>
-                                        </label>
-                                        <label class="store-checkbox-item">
-                                            <input type="checkbox" name="storeLocation" value="Westlake">
-                                            <span>Westlake</span>
-                                        </label>
+                        <div class="modal-body">
+                            <form id="timeOffForm">
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="firstName">First Name</label>
+                                        <input type="text" id="firstName" name="firstName" required>
                                     </div>
-                                    <div id="storeCounter" style="text-align: center; font-size: 13px; color: black; font-weight: 500; padding: 8px; background: #f1f3f4; border-radius: 4px;">Select 1-7 stores where you work (0 selected)</div>
+                                    <div class="form-group">
+                                        <label for="lastName">Last Name</label>
+                                        <input type="text" id="lastName" name="lastName" required>
+                                    </div>
                                 </div>
-                            </div>
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="startDate">Start Date</label>
+                                        <input type="date" id="startDate" name="startDate" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="endDate">End Date</label>
+                                        <input type="date" id="endDate" name="endDate" required>
+                                    </div>
+                                </div>
+                                <div class="form-row full">
+                                    <div class="form-group">
+                                        <label>Store Location(s) - Select all that apply</label>
+                                        <div id="storeLocationCheckboxes" style="padding: 16px; border: 2px solid #e1e5e9; border-radius: 8px; background: white;">
+                                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 12px;">
+                                                <label class="store-checkbox-item">
+                                                    <input type="checkbox" name="storeLocation" value="Arboretum">
+                                                    <span>Arboretum</span>
+                                                </label>
+                                                <label class="store-checkbox-item">
+                                                    <input type="checkbox" name="storeLocation" value="Plaza Volente">
+                                                    <span>Plaza Volente</span>
+                                                </label>
+                                                <label class="store-checkbox-item">
+                                                    <input type="checkbox" name="storeLocation" value="Southpark">
+                                                    <span>Southpark</span>
+                                                </label>
+                                                <label class="store-checkbox-item">
+                                                    <input type="checkbox" name="storeLocation" value="Hill Country Galleria">
+                                                    <span>Hill Country Galleria</span>
+                                                </label>
+                                                <label class="store-checkbox-item">
+                                                    <input type="checkbox" name="storeLocation" value="Hancock">
+                                                    <span>Hancock</span>
+                                                </label>
+                                                <label class="store-checkbox-item">
+                                                    <input type="checkbox" name="storeLocation" value="Triangle">
+                                                    <span>Triangle</span>
+                                                </label>
+                                                <label class="store-checkbox-item">
+                                                    <input type="checkbox" name="storeLocation" value="Westlake">
+                                                    <span>Westlake</span>
+                                                </label>
+                                            </div>
+                                            <div id="storeCounter" style="text-align: center; font-size: 13px; color: black; font-weight: 500; padding: 8px; background: #f1f3f4; border-radius: 4px;">Select 1-7 stores where you work (0 selected)</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-row full">
+                                    <div class="form-group">
+                                        <label for="reason">Reason</label>
+                                        <textarea id="reason" name="reason" rows="4" placeholder="Please provide a reason for your time-off request..." required></textarea>
+                                    </div>
+                                </div>
+                            </form>
                         </div>
-                        <div class="form-row full">
-                            <div class="form-group">
-                                <label for="reason">Reason</label>
-                                <textarea id="reason" name="reason" rows="4" style="width: 100%; padding: 12px; border: 2px solid #e1e5e9; border-radius: 8px; resize: vertical;" required></textarea>
-                            </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" onclick="closeTimeOffModal()">Cancel</button>
+                            <button type="button" class="btn btn-primary" onclick="submitTimeOffRequest()">Submit Request</button>
                         </div>
-                        <div class="form-row full">
-                            <button type="submit" class="btn">Submit Request</button>
-                            <button type="button" class="btn btn-secondary" onclick="cancelRequest()" style="margin-top: 10px;">Cancel</button>
-                        </div>
-                    </form>
-                </div>
-
-                <!-- My Requests -->
+                    </div>
+                </div>                <!-- My Requests -->
                 <div class="request-form">
                     <h3>All Time-Off Requests</h3>
                     <div id="myRequestsList"></div>
@@ -2838,18 +3025,14 @@
         }
 
         function updateRequestForm() {
-            const requestForm = document.getElementById('requestForm');
             if (selectedDates.length > 0) {
-                requestForm.style.display = 'block';
                 const startDate = selectedDates[0];
                 const endDate = selectedDates[selectedDates.length - 1];
-                document.getElementById('startDate').value = startDate;
-                document.getElementById('endDate').value = endDate;
-            } else {
-                requestForm.style.display = 'none';
+                document.getElementById("startDate").value = startDate;
+                document.getElementById("endDate").value = endDate;
+                openTimeOffModal();
             }
         }
-
         function previousWeek() {
             currentWeek.setDate(currentWeek.getDate() - 7);
             renderCalendar();
@@ -2865,10 +3048,39 @@
         function cancelRequest() {
             selectedDates = [];
             renderCalendar();
-            document.getElementById('requestForm').style.display = 'none';
-            document.getElementById('timeOffForm').reset();
+            closeTimeOffModal();
         }
 
+        // Modal Functions
+        function openTimeOffModal() {
+            const modal = document.getElementById("timeOffModal");
+            modal.style.display = "block";
+            document.body.style.overflow = "hidden";
+        }
+
+        function closeTimeOffModal() {
+            const modal = document.getElementById("timeOffModal");
+            modal.style.display = "none";
+            document.body.style.overflow = "auto";
+            document.getElementById("timeOffForm").reset();
+            selectedDates = [];
+            renderCalendar();
+        }
+
+        function submitTimeOffRequest() {
+            const form = document.getElementById("timeOffForm");
+            const formData = new FormData(form);
+            const formEvent = { preventDefault: () => {}, target: form };
+            handleTimeOffRequest(formEvent);
+        }
+
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            const modal = document.getElementById("timeOffModal");
+            if (event.target === modal) {
+                closeTimeOffModal();
+            }
+        }
         async function handleTimeOffRequest(e) {
             e.preventDefault();
             const formData = new FormData(e.target);
